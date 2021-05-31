@@ -27,8 +27,8 @@ public class PizzaController {
         return ResponseEntity.ok("Zaktualizowano pomyślnie");
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<?> deletePizza(@RequestBody String id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletePizza(@PathVariable(value="id", required=true) String id){
         this.pizzaService.deletePizza(id);
         return ResponseEntity.ok("Pizza została usunięta");
     }
