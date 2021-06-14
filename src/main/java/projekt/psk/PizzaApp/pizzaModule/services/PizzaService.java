@@ -29,6 +29,12 @@ public class PizzaService {
             if(newPizza.getDescription() != null){
                 piz.setDescription(newPizza.getDescription());
             }
+            if(newPizza.getPrice() != null){
+                piz.setPrice(newPizza.getPrice());
+            }
+            if(newPizza.getUrlAdress() != null){
+                piz.setUrlAdress(newPizza.getUrlAdress());
+            }
             this.pizzaRepository.save(piz);
         });
     }
@@ -36,22 +42,12 @@ public class PizzaService {
     public List<Pizza> getAllPizzas(){
         return this.pizzaRepository.findAll();
     }
-
     public List<Pizza> getAllOwnedPizzas(String id){
         return this.pizzaRepository.findByOwnerId(id);
     }
-
-
-
-
-
     public Optional<Pizza> getPizza(String id){
         return this.pizzaRepository.findById(id);
     }
-
-
-
-
     }
 
 

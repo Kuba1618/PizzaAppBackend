@@ -29,6 +29,9 @@ public class Pizza {
     @Size(max = 10)
     private String price;
 
+    @NotBlank
+    private String urlAdress;
+
 
     private String ownerId;
 }
