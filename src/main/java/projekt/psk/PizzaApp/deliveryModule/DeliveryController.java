@@ -29,7 +29,7 @@ public class DeliveryController {
         return this.deliveryService.getAllDelivery();
     }
 
-    @GetMapping("/check")
+    @PostMapping("/check")
     public boolean checkIfItCanBeDelivered(@RequestBody Delivery delivery) {
         return this.deliveryService.checkIfItCanBeDelivered(delivery);
     }

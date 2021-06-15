@@ -28,8 +28,8 @@ public class DeliveryService {
 
     public boolean checkIfItCanBeDelivered(Delivery delivery){
         boolean existsCity = deliveryRepository.existsDeliveryByCity(delivery.getCity());
-        boolean existsStreet = deliveryRepository.existsDeliveryByCity(delivery.getStreet());
-        boolean existsHouseNumber = deliveryRepository.existsDeliveryByCity(delivery.getHouseNumber());
+        boolean existsStreet = deliveryRepository.existsDeliveryByStreet(delivery.getStreet());
+        boolean existsHouseNumber = deliveryRepository.existsDeliveryByHouseNumber(delivery.getHouseNumber());
         if(existsCity == true && existsStreet == true && existsHouseNumber == true)
             return true;
         else
