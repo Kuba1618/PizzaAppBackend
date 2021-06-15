@@ -1,11 +1,28 @@
 package projekt.psk.PizzaApp.orderModule.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import projekt.psk.PizzaApp.deliveryModule.Delivery;
 import projekt.psk.PizzaApp.orderModule.models.Order;
+import projekt.psk.PizzaApp.orderModule.repositories.OrderRepository;
+import projekt.psk.PizzaApp.orderModule.services.OrderService;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class OrderControllerTest {
+
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Test
     void OrderCheckName() {
@@ -72,18 +89,49 @@ class OrderControllerTest {
 
     @Test
     void saveOrder() {
+        String orderString = "{\n" +
+                "    \"name\": \"Adam\",\n" +
+                "    \"surname\": \"Krycha\",\n" +
+                "    \"city\": \"Lublin\",\n" +
+                "    \"post_code\": \"22-123\",\n" +
+                "    \"street\": \"Matyldy\",\n" +
+                "    \"price\": \"44\",\n" +
+                "    \"payment\": \"payPal\",\n" +
+                "    \"ownerId\": \"4\"\n" +
+                "}";
+
+        try{
+            Order order = new ObjectMapper().readValue(orderString, Order.class);
+            System.out.println(order);
+            orderRepository.save(order);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void updateOrder() {
+        String orderID = "60c8b15b71a1eb0ec7e36f90";
+        Optional<Order> order = this.orderRepository.findById(orderID);
+        order.get().setName("Maciek");
+        this.orderRepository.save(order.get());
+        Assert.assertTrue(this.orderRepository.findById(orderID).get().getName().equals("Maciek"));
     }
 
     @Test
     void deleteOrder() {
+        String orderID = "60c8b15b71a1eb0ec7e36f90";
+        this.orderRepository.deleteById(orderID);
+        System.out.println(this.orderRepository.findById(orderID));
+        Assert.assertTrue(this.orderRepository.findById(orderID).isEmpty());
     }
 
     @Test
     void getOrder() {
+        String orderID = "60c8b15b71a1eb0ec7e36f90";
+        Optional<Order> order = orderService.getPizza(orderID);
+        Assert.assertTrue("Lublin".equals(order.get().getCity()));
     }
 
     @Test
