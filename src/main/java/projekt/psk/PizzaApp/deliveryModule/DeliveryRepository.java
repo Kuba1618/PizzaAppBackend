@@ -9,4 +9,5 @@ public interface DeliveryRepository extends MongoRepository<Delivery, String> {
     public boolean existsDeliveryByCity(String city);
     public boolean existsDeliveryByStreet(String street);
     public boolean existsDeliveryByHouseNumber(String houseNumber);
+
 }
