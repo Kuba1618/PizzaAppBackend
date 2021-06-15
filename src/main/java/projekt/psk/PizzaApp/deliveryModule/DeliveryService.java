@@ -2,6 +2,7 @@ package projekt.psk.PizzaApp.deliveryModule;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,16 @@ public class DeliveryService {
 
     public Optional<Delivery> getDelivery(String id){
         return this.deliveryRepository.findById(id);
+    }
+
+    public boolean checkIfItCanBeDelivered(Delivery delivery){
+        boolean existsCity = deliveryRepository.existsDeliveryByCity(delivery.getCity());
+        boolean existsStreet = deliveryRepository.existsDeliveryByCity(delivery.getStreet());
+        boolean existsHouseNumber = deliveryRepository.existsDeliveryByCity(delivery.getHouseNumber());
+        if(existsCity == true && existsStreet == true && existsHouseNumber == true)
+            return true;
+        else
+            return false;
     }
 
 }

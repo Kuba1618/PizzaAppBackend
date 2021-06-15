@@ -29,8 +29,8 @@ public class DeliveryController {
         return this.deliveryService.getAllDelivery();
     }
 
-    /*@GetMapping("/get/check")
+    @GetMapping("/check")
     public boolean checkIfItCanBeDelivered(@RequestBody Delivery delivery) {
-        if()
-    }*/
+        return this.deliveryService.checkIfItCanBeDelivered(delivery);
+    }
 }
