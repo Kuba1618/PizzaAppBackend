@@ -12,6 +12,7 @@ import projekt.psk.PizzaApp.orderModule.models.Order;
 import projekt.psk.PizzaApp.orderModule.repositories.OrderRepository;
 import projekt.psk.PizzaApp.orderModule.services.OrderService;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -136,6 +137,9 @@ class OrderControllerTest {
 
     @Test
     void getAllOrders() {
+        List<Order> orders = orderService.getAllPizzas();
+        System.out.println(orders.get(0));
+        Assert.assertTrue("Lublin".equals(orders.get(0).getCity()));
     }
 
     @Test
